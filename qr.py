@@ -15,4 +15,4 @@ def makeQRCode():
     qr = getIPAddress()
     if qr is not None:
         url = pyqrcode.create(qr)
-        url.png('myqr.png', scale=14)
+        url.png('myqr.png', scale=10, quiet_zone=3)

@@ -1,3 +1,4 @@
+
 from helper import helper_string
 from qr import makeQRCode
 import socket
@@ -26,7 +27,6 @@ class Macronium(MDApp):
         self.thread.start()
 
     def startListening(self):
-        keyboard = Controller()
         while True:
             self.root.ids.label.title = "Waiting for connection..."
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -45,10 +45,22 @@ class Macronium(MDApp):
                 if 'Macronium-key' in request_string:
                     key = request_string.split('<')[1].split('>')[0]
                     print(key + ' pressed')
-                    exec('keyboard.press(Key.' + key + ')')
-                    exec('keyboard.release(Key.' + key + ')')
+                    self.pressKey(key)
                 print(request_string)
             s.close()
+
+    def pressKey(self, key):
+        keyboard = Controller()
+        if '+' not in key:
+            exec('keyboard.press(' + key + ')')
+            exec('keyboard.release(' + key + ')')
+        else:
+            keys = key.split('+')
+            for i in keys:
+                exec('keyboard.press(' + i + ')')
+            keys.reverse()
+            for i in keys:
+                exec('keyboard.release(' + i + ')')
 
 
 Macronium().run()
