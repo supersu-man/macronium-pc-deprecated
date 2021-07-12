@@ -1,4 +1,3 @@
-
 from helper import helper_string
 from qr import makeQRCode
 import socket
@@ -52,15 +51,26 @@ class Macronium(MDApp):
     def pressKey(self, key):
         keyboard = Controller()
         if '+' not in key:
-            exec('keyboard.press(' + key + ')')
-            exec('keyboard.release(' + key + ')')
+            if 'Key' in key:
+                exec('keyboard.press(' + key + ')')
+                exec('keyboard.release(' + key + ')')
+            else:
+                exec('keyboard.press(\'' + key + '\')')
+                exec('keyboard.release(\'' + key + '\')')
+
         else:
             keys = key.split('+')
             for i in keys:
-                exec('keyboard.press(' + i + ')')
+                if 'Key' in i:
+                    exec('keyboard.press(' + i + ')')
+                else:
+                    exec('keyboard.press(\'' + i + '\')')
             keys.reverse()
             for i in keys:
-                exec('keyboard.release(' + i + ')')
+                if 'Key' in i:
+                    exec('keyboard.release(' + i + ')')
+                else:
+                    exec('keyboard.release(\'' + i + '\')')
 
 
 Macronium().run()
