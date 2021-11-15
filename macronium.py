@@ -7,7 +7,7 @@ from kivy.config import Config
 from update import get_latest, isInternet
 import webbrowser
 
-version = "1.2"
+version = "1.3"
 url = "https://github.com/supersu-man/Macronium-PC/releases/latest"
 
 Config.set('kivy', 'window_icon', 'ICON.ico')
