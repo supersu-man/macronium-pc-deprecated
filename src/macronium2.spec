@@ -3,6 +3,9 @@ from kivymd import hooks_path as kivymd_hooks_path
 import os
 path = os.path.abspath(".")
 
+if 'src' not in path:
+    path = path + '\\\\src'
+
 block_cipher = None
 
 
@@ -25,7 +28,7 @@ exe = EXE(pyz,
     a.scripts,
     [],
     exclude_binaries=True,
-    name='macronium',
+    name='Macronium',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
@@ -41,4 +44,4 @@ coll = COLLECT(exe,
     strip=False,
     upx=True,
     upx_exclude=[],
-    name='macronium')
+    name='Macronium')

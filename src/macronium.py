@@ -6,8 +6,9 @@ import threading
 from kivy.config import Config
 from update import get_latest, isInternet
 import webbrowser
+from version import version
 
-version = "1.3"
+
 url = "https://github.com/supersu-man/Macronium-PC/releases/latest"
 
 Config.set('kivy', 'window_icon', 'ICON.ico')
@@ -18,22 +19,29 @@ from kivy.lang import Builder
 from kivymd.app import MDApp
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.button import MDFlatButton
+from kivy.core.image import Image as CoreImage
 
 
 class Macronium(MDApp):
     dialog = None
 
     def build(self):
-        makeQRCode()
         return Builder.load_string(helper_string)
 
     def on_start(self):
-        self.root.ids.img.source = 'myqr.png'
+        self.set_qr_code()
         thread = threading.Thread(target=self.startListening, daemon=True)
         thread2 = threading.Thread(target=self.check_forUpdate, daemon=True)
         thread.start()
         if isInternet():
             thread2.start()
+    
+    def set_qr_code(self):
+        imgData = makeQRCode()
+        self.root.ids.img.source = CoreImage(imgData, ext='png').texture
+        self.root.ids.img.reload
+
+
 
     def check_forUpdate(self):
         if get_latest(url) != version:
