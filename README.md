@@ -1,5 +1,3 @@
-![](githubdocs/logo.png)
+DEPRECATED. NO MORE DEVELOPMENT AND SUPPORT FOR THIS SOFTWARE.
 
-# Macronium-PC
-PC server code for Macronium Android.
-Know more about Macronium [here](https://github.com/supersu-man/Macronium/blob/main/README.md).
+![](githubdocs/logo.png)
